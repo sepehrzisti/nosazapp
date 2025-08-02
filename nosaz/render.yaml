@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: nosaz-django
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn nosaz.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: nosaz.settings
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
