@@ -73,9 +73,27 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # برای تولید
 ALLOWED_HOSTS = ['*']
 
-MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # خیلی مهم
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'static/frontend/build')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
 ]
+
+
+
+
 
 
 
@@ -94,6 +112,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # خیلی مهم
 
 ]
 CORS_ALLOW_ALL_ORIGINS = True  # فقط برای تست
@@ -106,11 +125,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 
 ROOT_URLCONF = 'nosaz.urls'
-TEMPLATES = [
-    {
-        'DIRS': [os.path.join(BASE_DIR, 'static/frontend')],
-    },
-]
+
 
 WSGI_APPLICATION = 'nosaz.wsgi.application'
 
